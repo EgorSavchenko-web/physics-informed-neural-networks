@@ -1,55 +1,37 @@
 # Lagaris-type PINN for First-Order ODE
 
-This repository contains a minimal Python implementation of a **Physics-Informed Neural Network (PINN)** for solving a first-order ordinary differential equation (ODE) using the method proposed by Lagaris, Likas, and Fotiadis in their 1998 paper:
-
-> **"Artificial Neural Networks for Solving Ordinary and Partial Differential Equations"**  
-> _IEEE Transactions on Neural Networks, Vol. 9, No. 5, September 1998._
-
-The method constructs a **trial solution** that automatically satisfies the initial condition and uses a small feedforward neural network to approximate the remaining part of the solution. The network is trained by minimizing the residual of the differential equation over a set of collocation points using **gradient descent**.
-
----
+This repository contains a minimal Python implementation of a **Physics-Informed Neural Network (PINN)** for solving a first-order ordinary differential equation (ODE) using the method proposed by Lagaris, Likas, and Fotiadis in their 1998 paper.
 
 ## Problem Solved
 
 We solve the simple first-order ODE:
 
-\[
+$$
 \frac{du}{dx} = -u, \quad u(0) = 1, \quad x \in [0, 1]
-\]
+$$
 
 Exact solution:
-\[
+$$
 u(x) = e^{-x}
-\]
-
----
+$$
 
 ## Method Overview
 
 The trial solution is constructed as:
 
-\[
+$$
 u_t(x) = u_0 + x \cdot N(x; \theta)
-\]
+$$
 
 where:
-- \( u_0 = 1 \) is the initial condition,
-- \( N(x; \theta) \) is a small neural network with parameters \( \theta \),
-- The term \( x \) ensures that the initial condition \( u_t(0) = u_0 \) is satisfied exactly for any \( N \).
+- $u_0 = 1$ is the initial condition,
+- $N(x; \theta)$ is a small neural network with parameters $\theta$,
+- The term $x$ ensures that the initial condition $u_t(0) = u_0$ is satisfied exactly for any $N$.
 
-The network \( N \) has a minimal architecture with one hidden neuron and a \(\tanh\) activation:
-\[
+The network $N$ has a minimal architecture with one hidden neuron and a $\tanh$ activation:
+$$
 N(x) = w_2 \cdot \tanh(w_1 \cdot x + b_1) + b_2
-\]
-Thus, the trainable parameters are \( \theta = [w_1, b_1, w_2, b_2] \). In this implementation, they are initialized to \( [-1.0, 0.0, 1.0, 0.0] \).
-
-The physics-informed loss function is the mean squared residual of the ODE over \( m \) collocation points:
-\[
-L(\theta) = \frac{1}{m} \sum_{i=1}^m \left[ \frac{du_t}{dx}(x_i) + u_t(x_i) \right]^2
-\]
-The residual \( R(x) = \frac{du_t}{dx} + u_t \) enforces the governing equation \( u' = -u \).
-
-**Key difference from modern PINNs:** Instead of relying on automatic differentiation (backpropagation) through the residual, this implementation follows the original paper and uses **explicit, hand-coded analytic gradients** of the loss with respect to parameters \( \theta \). Parameters are updated via basic gradient descent: \( \theta \leftarrow \theta - \eta \, \nabla_\theta L \).
+$$
 
 ---
 
