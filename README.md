@@ -83,17 +83,6 @@ After training, the neural network approximates the solution \( u(x) = e^{-x} \)
 
 ---
 
-## Why This Is a "Lagaris-type PINN"
-
-This implementation follows the core idea from the Lagaris et al. paper:
-
-1. **Trial solution construction** that exactly satisfies initial/boundary conditions.
-2. Use of a **simple feedforward neural network** as the adjustable part.
-3. **Collocation method** – training on a set of points inside the domain.
-4. **Minimization of the PDE residual** via gradient-based optimization.
-
-This is essentially an early form of what is now called a **Physics-Informed Neural Network (PINN)**, where the physics (the ODE) is embedded into the loss function.
-
 ---
 
 ## References
