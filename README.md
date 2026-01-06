@@ -56,8 +56,8 @@ After training (2000 epochs of gradient descent with learning rate 0.1), the neu
 The final mean squared residual is typically below \( 10^{-5} \), and the maximum absolute error against the exact solution is of order \( 10^{-4} \).
 
 ### Output Figures
-1.  **Solution Comparison:** Shows the exact solution \( e^{-x} \) and the neural network trial solution \( u_t(x) \).
-2.  **Training History:** Plots the decay of the loss function (MSE residual) in log-scale.
+1.  ![Solution Comparison:](Figure_1.png)
+2.  ![Training History:](Figure_2.png)
 
 
 ---
