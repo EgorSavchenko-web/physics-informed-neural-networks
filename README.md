@@ -11,6 +11,7 @@ $$
 $$
 
 Exact solution:
+
 $$
 u(x) = e^{-x}
 $$
@@ -29,6 +30,7 @@ where:
 - The term $x$ ensures that the initial condition $u_t(0) = u_0$ is satisfied exactly for any $N$.
 
 The network $N$ has a minimal architecture with one hidden neuron and a $\tanh$ activation:
+
 $$
 N(x) = w_2 \cdot \tanh(w_1 \cdot x + b_1) + b_2
 $$
